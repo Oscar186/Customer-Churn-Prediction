@@ -1,6 +1,5 @@
 from src.validation import DataValidation
 
-
 def main():
 
     validator = DataValidation()
