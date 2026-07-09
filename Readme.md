@@ -144,32 +144,83 @@ customer-churn-prediction/
 └── README.md
 ```
 
-## ✅ Features Implemented
 
-### Configuration Management
-- YAML-based configuration
-- Centralized project settings
+## 🚀 Features Implemented
 
-### Logging
-- Console logging
-- Timestamped log files
-- File & line number tracking
+### 📌 Project Architecture
 
-### Exception Handling
-- Custom exception class
-- Detailed error reporting
+* Modular, production-ready ML pipeline architecture
+* Configuration-driven design using YAML files
+* Centralized configuration management
+* Strongly typed configuration and artifact entities
+* Comprehensive logging and custom exception handling
+* Organized project structure following software engineering best practices
 
-### Utility Module
-- Directory creation
-- CSV read/write helpers
-- YAML reader
+### 📥 Data Ingestion
 
-### Data Ingestion
-- Reads dataset from configurable path
-- Logging integrated
-- Exception handling
+* Automated dataset loading
+* Dataset path validation
+* Artifact-based data ingestion workflow
 
-### Data Validation
-- Schema-based validation
-- Required column verification
-- Validation status reporting
+### ✅ Data Validation
+
+* Schema-based dataset validation
+* Automatic column consistency checks
+* Validation status tracking through pipeline artifacts
+
+### 📊 Exploratory Data Analysis (EDA)
+
+* Dataset overview and quality assessment
+* Missing value analysis
+* Duplicate record detection
+* Data type analysis
+* Univariate analysis
+* Bivariate analysis
+* Distribution analysis for numerical features
+* Category-wise churn analysis
+* Correlation analysis
+* Outlier detection
+
+### 📈 Statistical Analysis
+
+* Chi-Square Test for categorical feature significance
+* Correlation Matrix for numerical features
+* Variance Inflation Factor (VIF) for multicollinearity detection
+* Statistical feature selection and validation
+
+### ⚙️ Data Transformation
+
+* Automated train-test splitting with stratification
+* Feature preprocessing using Scikit-learn Pipelines
+* Numerical feature scaling using StandardScaler
+* Categorical feature encoding using OneHotEncoder
+* ColumnTransformer-based preprocessing
+* Serialization of preprocessing pipeline
+* Processed dataset export as NumPy arrays
+
+### 🛠 Utility Module
+
+* YAML configuration reader
+* CSV read/write utilities
+* Object serialization using Joblib
+* NumPy array persistence
+* Directory management utilities
+* Reusable helper functions for pipeline components
+
+### 📝 Logging & Exception Handling
+
+* Centralized logging framework
+* Custom exception handling
+* Component-level execution tracking
+* Debug-friendly pipeline logs
+
+### 🚧 Upcoming Features
+
+* Model Training
+* Model Evaluation
+* Prediction Pipeline
+* FastAPI REST API
+* Docker Containerization
+* CI/CD Integration
+* Model Deployment
+* Monitoring & Logging Enhancements
