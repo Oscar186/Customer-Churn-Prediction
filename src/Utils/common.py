@@ -2,7 +2,8 @@ import sys
 from pathlib import Path
 import yaml
 import pandas as pd
-
+import numpy as np
+import joblib
 from src.logger import logger
 from src.exception import CustomException
 
@@ -55,7 +56,6 @@ def create_directories(paths):
         logger.error("Error while creating directories.")
         raise CustomException(e, sys)
 
-
 def read_csv(file_path):
     """
     Read a CSV file.
@@ -81,8 +81,8 @@ def read_csv(file_path):
         logger.error(f"Unable to read CSV: {file_path}")
         raise CustomException(e, sys)
 
-
 def save_csv(df, file_path):
+
     """
     Save DataFrame to CSV.
 
@@ -92,9 +92,7 @@ def save_csv(df, file_path):
     """
 
     try:
-        file_path = Path(file_path)
-
-        file_path.parent.mkdir(parents=True, exist_ok=True)
+        ensure_parent_directory(file_path)
 
         logger.info(f"Saving CSV to: {file_path}")
 
@@ -105,3 +103,61 @@ def save_csv(df, file_path):
     except Exception as e:
         logger.error(f"Unable to save CSV: {file_path}")
         raise CustomException(e, sys)
+
+def save_object(file_path, obj):
+
+    try:
+        ensure_parent_directory(file_path)
+
+        logger.info(f"Saving object: {file_path}")
+
+        joblib.dump(obj, file_path)
+
+        logger.info("Object saved successfully.")
+
+    except Exception as e:
+        logger.error("Unable to save object.")
+        raise CustomException(e, sys)
+    
+def load_object(file_path):
+    try:
+        logger.info(f"Loading object: {file_path}")
+
+        obj = joblib.load(file_path)
+
+        logger.info("Object loaded successfully.")
+
+        return obj
+
+    except Exception as e:
+        logger.error("Unable to load object.")
+        raise CustomException(e, sys)
+    
+def save_numpy_array(file_path, array):
+    try:
+        ensure_parent_directory(file_path)
+
+        np.save(file_path, array)
+
+        logger.info(f"Numpy array saved: {file_path}")
+        logger.info("NumPy array saved successfully.")
+        
+    except Exception as e:
+        raise CustomException(e, sys)
+
+def load_numpy_array(file_path):
+    try:
+        logger.info(f"Loading NumPy array: {file_path}")
+
+        array = np.load(file_path)
+
+        logger.info("NumPy array loaded successfully.")
+
+        return array
+
+    except Exception as e:
+        raise CustomException(e, sys)
+    
+def ensure_parent_directory(file_path):
+    file_path = Path(file_path)
+    file_path.parent.mkdir(parents=True, exist_ok=True)

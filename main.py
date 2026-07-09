@@ -1,4 +1,4 @@
-from src.validation import DataValidation
+from Customer_Churn.src.Components.data_validation import DataValidation
 
 def main():
 

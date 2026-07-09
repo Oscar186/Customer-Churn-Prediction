@@ -1,35 +1,42 @@
-project:
-  name: Customer Churnd Prediction
-  version: 1.0
+artifacts_root: artifacts
 
-paths:
-  raw_data: data/Raw/customer_churn.csv
-  interim_data: data/Interim/
-  processed_data: data/Processed
-  models: models/
+data_ingestion:
 
-schema:
-  schema_file: configs/schema.yaml
+  root_dir: artifacts/data_ingestion
 
-validation:
-  required_columns:
-    - customerID
-    - gender
-    - SeniorCitizen
-    - Partner
-    - Dependents
-    - tenure
-    - PhoneService
-    - MultipleLines
-    - InternetService
-    - OnlineSecurity
-    - OnlineBackup
-    - TechSupport
-    - StreamingTV
-    - StreamingMovies
-    - Contract
-    - PaperlessBilling
-    - PaymentMethod
-    - MonthlyCharges
-    - TotalCharges
-    - Churn
+  source_url: https://raw.githubusercontent.com/blastchar/telco-customer-churn/master/WA_Fn-UseC_-Telco-Customer-Churn.csv
+
+  local_data_file: artifacts/data_ingestion/raw.csv
+
+
+data_validation:
+
+  root_dir: artifacts/data_validation
+
+  data_path: artifacts/data_ingestion/raw.csv
+
+  schema_path: configs/schema.yaml
+
+
+data_transformation:
+
+  root_dir: artifacts/data_transformation
+
+  data_path: artifacts/data_ingestion/raw.csv
+
+  preprocessor_path: artifacts/data_transformation/preprocessor.pkl
+
+  train_array_path: artifacts/data_transformation/train.npy
+  
+  test_array_path: artifacts/data_transformation/test.npy
+
+
+model_trainer:
+
+  root_dir: artifacts/model_trainer
+
+  train_array_path: artifacts/data_transformation/train.npy
+
+  test_array_path: artifacts/data_transformation/test.npy
+
+  trained_model_path: artifacts/model_trainer/model.pkl

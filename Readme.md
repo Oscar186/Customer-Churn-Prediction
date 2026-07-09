@@ -43,29 +43,35 @@ Upcoming:
 
 ## 🚀 Project Status
 
-### ✅ Phase 01 - Project Setup
-- Project structure
-- Virtual environment
-- Git & GitHub integration
-- Requirements management
+## Project Progress
 
-### ✅ Phase 02 - Data Ingestion & Validation
-- Configuration management
-- Custom logging
-- Exception handling
-- Utility functions
-- Data ingestion pipeline
-- Schema-based data validation
+### ✅ Phase 01: Project Setup
+- Initialized project structure
+- Configured logging and exception handling
+- Organized directories for components, artifacts, configs, and utilities
 
-### ⏳ Upcoming
-- Data Cleaning
-- Exploratory Data Analysis (EDA)
-- Feature Engineering
-- Model Training
-- MLflow
-- FastAPI
-- Docker
-- Cloud Deployment
+### ✅ Phase 02: Data Ingestion & Validation
+- Implemented modular data ingestion component
+- Added schema-based data validation
+- Introduced typed configuration and artifact entities
+- Centralized configuration management
+
+### ✅ Phase 03: Exploratory Data Analysis
+- Performed univariate and bivariate analysis
+- Conducted statistical validation using:
+  - Chi-Square Test
+  - Correlation Analysis
+  - Variance Inflation Factor (VIF)
+- Identified significant features and multicollinearity
+
+### 🚧 Phase 04: Data Transformation (In Progress)
+- Built preprocessing pipeline using:
+  - StandardScaler
+  - OneHotEncoder
+  - ColumnTransformer
+- Implemented train-test split with stratification
+- Added serialization utilities for preprocessors and NumPy arrays
+- Refactored project into a modular, artifact-driven pipeline architecture
 
 ## Project Structure
 
