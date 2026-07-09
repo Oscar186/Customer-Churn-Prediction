@@ -78,31 +78,67 @@ Upcoming:
 ```text
 customer-churn-prediction/
 │
-├── app/
-├── configs/
+├── app/                             # FastAPI application
+│
+├── artifacts/                       # Generated artifacts
+│   ├── data_ingestion/
+│   ├── data_validation/
+│   ├── data_transformation/
+│   └── model_trainer/
+│
+├── configs/                         # Configuration files
 │   ├── config.yaml
 │   └── schema.yaml
 │
 ├── data/
-│   ├── Raw/
-│   ├── Interim/
-│   └── Processed/
+│   ├── Raw/                         # Original dataset
+│   ├── Interim/                     # Intermediate datasets
+│   └── Processed/                   # Processed datasets
 │
-├── logs/
-├── models/
-├── notebooks/
-├── scripts/
+├── logs/                            # Application logs
+│
+├── models/                          # Saved ML models
+│
+├── notebooks/                       # Jupyter notebooks (EDA & experiments)
+│
+├── reports/
+│   └── figures/                     # EDA visualizations
+│
+├── scripts/                         # Utility scripts
 │
 ├── src/
-│   ├── config.py
+│   ├── Components/                  # Core ML components
+│   │   ├── data_ingestion.py
+│   │   ├── data_validation.py
+│   │   ├── data_transformation.py
+│   │   ├── model_trainer.py
+│   │   └── model_evaluation.py
+│   │
+│   ├── Config/                      # Configuration manager
+│   │   └── configuration.py
+│   │
+│   ├── Constants/                   # Project constants
+│   │   └── __init__.py
+│   │
+│   ├── Entity/                      # Config & artifact dataclasses
+│   │   ├── config_entity.py
+│   │   └── artifact_entity.py
+│   │
+│   ├── Pipeline/                    # Training & prediction pipelines
+│   │   ├── training_pipeline.py
+│   │   └── prediction_pipeline.py
+│   │
+│   ├── Utils/                       # Common helper functions
+│   │   └── common.py
+│   │
 │   ├── logger.py
 │   ├── exception.py
-│   ├── utils.py
-│   ├── ingestion.py
-│   ├── validation.py
 │   └── __init__.py
 │
-├── tests/
+├── temp/                            # Temporary files
+│
+├── tests/                           # Unit tests
+│
 ├── main.py
 ├── requirements.txt
 └── README.md
