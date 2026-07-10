@@ -12,7 +12,7 @@
     # Perform preprocessing.
 
 import sys
-
+import shutil
 from src.Entity.config_entity import DataIngestionConfig
 from src.Entity.artifact_entity import DataIngestionArtifact
 
@@ -36,14 +36,23 @@ class DataIngestion:
             logger.info("Starting Data Ingestion")
             logger.info("=" * 60)
 
-            if not self.config.local_data_file.exists():
-
+            if not self.config.source_data_path.exists():
                 raise FileNotFoundError(
-                    f"Dataset not found : {self.config.local_data_file}"
+                    f"Dataset not found: {self.config.source_data_path}"
                 )
 
+            self.config.local_data_file.parent.mkdir(
+                parents=True,
+                exist_ok=True
+            )
+
+            shutil.copy2(
+                self.config.source_data_path,
+                self.config.local_data_file
+            )
+
             logger.info(
-                f"Dataset found at : {self.config.local_data_file}"
+                f"Dataset copied to {self.config.local_data_file}"
             )
 
             ingestion_artifact = DataIngestionArtifact(

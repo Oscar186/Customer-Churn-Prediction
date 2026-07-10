@@ -30,3 +30,45 @@ class ConfigurationManager:
             value = value[key]
 
         return value
+    
+    def get_data_ingestion_config(self):
+        config = self.get("data_ingestion")
+
+        return DataIngestionConfig(
+            root_dir=Path(config["root_dir"]),
+            source_data_path = Path(config["source_data_path"]),
+            local_data_file=Path(config["local_data_file"])
+        )
+    
+    def get_data_validation_config(self):
+
+        config = self.get("data_validation")
+
+        return DataValidationConfig(
+            root_dir=Path(config["root_dir"]),
+            data_path=Path(config["data_path"]),
+            schema_path=Path(config["schema_path"])
+        )
+
+    def get_data_transformation_config(self):
+
+        config = self.get("data_transformation")
+
+        return DataTransformationConfig(
+            root_dir=Path(config["root_dir"]),
+            data_path=Path(config["data_path"]),
+            preprocessor_path=Path(config["preprocessor_path"]),
+            train_array_path=Path(config["train_array_path"]),
+            test_array_path=Path(config["test_array_path"])
+        )
+    
+    def get_model_trainer_config(self):
+
+        config = self.get("model_trainer")
+
+        return ModelTrainerConfig(
+            root_dir=Path(config["root_dir"]),
+            train_array_path=Path(config["train_array_path"]),
+            test_array_path=Path(config["test_array_path"]),
+            trained_model_path=Path(config["trained_model_path"])
+        )

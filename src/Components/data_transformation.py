@@ -7,7 +7,7 @@ from src.logger import logger
 from src.exception import CustomException
 from src.Entity.config_entity import DataTransformationConfig
 from sklearn.model_selection import train_test_split
-
+from sklearn.impute import SimpleImputer
 from src.Utils.common import (
     read_csv,
     save_object,
@@ -29,7 +29,7 @@ class DataTransformation:
         self.config = config
         self.validation_artifact = validation_artifact
 
-    def get_data_transformer_object(self):
+    def get_preprocessor(self):
 
         try: 
             logger.info("Creating preprocessing pipeline...")
@@ -61,12 +61,14 @@ class DataTransformation:
 
             num_pipeline = Pipeline(
                 steps=[
+                    ("imputer", SimpleImputer(strategy="median")),
                     ("scaler", StandardScaler())
                 ]
             )
 
             cat_pipeline = Pipeline(
                 steps=[
+                    ("imputer", SimpleImputer(strategy="most_frequent")),
                     (
                         "encoder",
                         OneHotEncoder(
@@ -88,6 +90,7 @@ class DataTransformation:
             logger.info("Preprocessing pipeline created successfully.")
 
             return preprocessor
+        
         except Exception as e:
             logger.error("Error while creating preprocessing pipeline")
             raise CustomException(e, sys)
@@ -114,7 +117,7 @@ class DataTransformation:
             # Split Features & Target
             # ==============================
 
-            X = df.drop(columns=["Churn"], axis=1)
+            X = df.drop(columns=["customerID","Churn"])
 
             y = df["Churn"].map(
                 {
@@ -154,7 +157,7 @@ class DataTransformation:
             # Create Preprocessor
             # ==============================
 
-            preprocessor = self.get_data_transformer_object()
+            preprocessor = self.get_preprocessor()
 
             # ==============================
             # Fit & Transform
@@ -180,7 +183,7 @@ class DataTransformation:
 
                 X_train_processed,
 
-                np.array(y_train)
+                y_train.to_numpy()
 
             ]
 
@@ -188,14 +191,17 @@ class DataTransformation:
 
                 X_test_processed,
 
-                np.array(y_test)
+                # np.array(y_test)
+                y_test.to_numpy()
 
             ]
 
             # ==============================
             # Save Preprocessor
             # ==============================
-
+            logger.info(
+                "Saving preprocessing pipeline..."
+            )
             save_object(
 
                 self.config.preprocessor_path,

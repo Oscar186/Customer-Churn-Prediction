@@ -1,86 +1,141 @@
 # Customer Churn Prediction System
 
-Production-grade ML project built using Python, Scikit-learn, FastAPI, PostgreSQL, Docker, MLflow, and CI/CD.
+A production-ready Machine Learning project that predicts customer churn using a modular, artifact-driven pipeline architecture. The project is built with Python and Scikit-learn following software engineering best practices, making it scalable, maintainable, and deployment-ready.
 
-## Goal
+---
 
-Predict customer churn and expose the model through a REST API.
+# 🎯 Project Goal
 
-## Roadmap
+Build an end-to-end Machine Learning system capable of predicting customer churn and exposing predictions through a REST API using FastAPI. The project follows a production-oriented architecture with modular pipeline components, configuration management, artifact tracking, logging, and model versioning.
+
+---
+
+# 🛣️ Roadmap
 
 - [x] Phase 01 - Project Setup
 - [x] Phase 02 - Data Ingestion & Validation
-- [ ] Phase 03 - Data Cleaning & EDA
-- [ ] Phase 04 - Feature Engineering
+- [x] Phase 03 - Exploratory Data Analysis
+- [x] Phase 04 - Data Transformation
 - [ ] Phase 05 - Model Training
 - [ ] Phase 06 - Model Evaluation
 - [ ] Phase 07 - MLflow Integration
-- [ ] Phase 08 - FastAPI
-- [ ] Phase 09 - Docker
+- [ ] Phase 08 - FastAPI Integration
+- [ ] Phase 09 - Dockerization
 - [ ] Phase 10 - Cloud Deployment
-- [ ] Phase 11 - Monitoring
+- [ ] Phase 11 - Monitoring & CI/CD
 
-## Tech Stack
+---
+
+# 💻 Tech Stack
+
+## Currently Used
 
 - Python 3.11
 - Pandas
 - NumPy
+- Scikit-learn
+- Matplotlib
+- Seaborn
 - PyYAML
+- Joblib
 - Logging
 - Git
 - GitHub
 
-Upcoming:
+## Upcoming
 
-- Scikit-learn
-- MLflow
 - FastAPI
-- Docker
 - PostgreSQL
+- MLflow
+- Docker
 - Airflow
+- CI/CD
+- Cloud Deployment
 
-# Customer Churn Prediction
+---
 
-## 🚀 Project Status
+# 🚀 Project Progress
 
-## Project Progress
+## ✅ Phase 01: Project Setup
 
-### ✅ Phase 01: Project Setup
-- Initialized project structure
-- Configured logging and exception handling
-- Organized directories for components, artifacts, configs, and utilities
+- Initialized a production-ready project structure
+- Configured centralized logging
+- Implemented custom exception handling
+- Organized project into modular components, configurations, artifacts, utilities, and pipelines
 
-### ✅ Phase 02: Data Ingestion & Validation
-- Implemented modular data ingestion component
-- Added schema-based data validation
-- Introduced typed configuration and artifact entities
-- Centralized configuration management
+---
 
-### ✅ Phase 03: Exploratory Data Analysis
-- Performed univariate and bivariate analysis
-- Conducted statistical validation using:
-  - Chi-Square Test
-  - Correlation Analysis
-  - Variance Inflation Factor (VIF)
-- Identified significant features and multicollinearity
+## ✅ Phase 02: Data Ingestion & Validation
 
-### 🚧 Phase 04: Data Transformation (In Progress)
-- Built preprocessing pipeline using:
-  - StandardScaler
-  - OneHotEncoder
-  - ColumnTransformer
-- Implemented train-test split with stratification
-- Added serialization utilities for preprocessors and NumPy arrays
-- Refactored project into a modular, artifact-driven pipeline architecture
+- Implemented modular Data Ingestion component
+- Built schema-based Data Validation component
+- Introduced strongly typed Configuration entities
+- Introduced Artifact entities for pipeline communication
+- Centralized configuration management using YAML
 
-## Project Structure
+---
+
+## ✅ Phase 03: Exploratory Data Analysis
+
+- Dataset quality assessment
+- Missing value analysis
+- Duplicate record detection
+- Univariate analysis
+- Bivariate analysis
+- Outlier analysis
+- Correlation analysis
+- Chi-Square Test
+- Variance Inflation Factor (VIF)
+- Feature significance analysis
+- Business insights generation
+
+---
+
+## ✅ Phase 04: Data Transformation
+
+- Automated train-test split using stratified sampling
+- Built preprocessing pipeline using Scikit-learn Pipeline
+- Missing value handling using SimpleImputer
+- Numerical feature scaling using StandardScaler
+- Categorical encoding using OneHotEncoder
+- Unified preprocessing using ColumnTransformer
+- Serialized preprocessing pipeline using Joblib
+- Saved processed datasets as NumPy arrays
+- Integrated transformation into modular training pipeline
+
+---
+
+# 🔄 Training Pipeline Workflow
+
+```text
+Raw Dataset
+      │
+      ▼
+Data Ingestion
+      │
+      ▼
+Data Validation
+      │
+      ▼
+Data Transformation
+      │
+      ▼
+Train/Test NumPy Arrays
+      │
+      ▼
+Model Training (Upcoming)
+```
+
+---
+
+# 📂 Project Structure
 
 ```text
 customer-churn-prediction/
 │
 ├── app/                             # FastAPI application
 │
-├── artifacts/                       # Generated artifacts
+├── artifacts/                       # Generated pipeline artifacts
 │   ├── data_ingestion/
 │   ├── data_validation/
 │   ├── data_transformation/
@@ -91,136 +146,182 @@ customer-churn-prediction/
 │   └── schema.yaml
 │
 ├── data/
-│   ├── Raw/                         # Original dataset
-│   ├── Interim/                     # Intermediate datasets
-│   └── Processed/                   # Processed datasets
+│   ├── Raw/
+│   ├── Interim/
+│   └── Processed/
 │
-├── logs/                            # Application logs
+├── logs/
 │
-├── models/                          # Saved ML models
+├── models/
 │
-├── notebooks/                       # Jupyter notebooks (EDA & experiments)
+├── notebooks/
 │
 ├── reports/
-│   └── figures/                     # EDA visualizations
+│   └── figures/
 │
-├── scripts/                         # Utility scripts
+├── scripts/
 │
 ├── src/
-│   ├── Components/                  # Core ML components
+│   ├── Components/
 │   │   ├── data_ingestion.py
 │   │   ├── data_validation.py
 │   │   ├── data_transformation.py
 │   │   ├── model_trainer.py
 │   │   └── model_evaluation.py
 │   │
-│   ├── Config/                      # Configuration manager
+│   ├── Config/
 │   │   └── configuration.py
 │   │
-│   ├── Constants/                   # Project constants
+│   ├── Constants/
 │   │   └── __init__.py
 │   │
-│   ├── Entity/                      # Config & artifact dataclasses
+│   ├── Entity/
 │   │   ├── config_entity.py
 │   │   └── artifact_entity.py
 │   │
-│   ├── Pipeline/                    # Training & prediction pipelines
+│   ├── Pipeline/
 │   │   ├── training_pipeline.py
 │   │   └── prediction_pipeline.py
 │   │
-│   ├── Utils/                       # Common helper functions
+│   ├── Utils/
 │   │   └── common.py
 │   │
 │   ├── logger.py
 │   ├── exception.py
 │   └── __init__.py
 │
-├── temp/                            # Temporary files
+├── temp/
 │
-├── tests/                           # Unit tests
+├── tests/
 │
 ├── main.py
 ├── requirements.txt
 └── README.md
 ```
 
+---
 
-## 🚀 Features Implemented
+# 🚀 Features Implemented
 
-### 📌 Project Architecture
+## 📌 Project Architecture
 
-* Modular, production-ready ML pipeline architecture
-* Configuration-driven design using YAML files
-* Centralized configuration management
-* Strongly typed configuration and artifact entities
-* Comprehensive logging and custom exception handling
-* Organized project structure following software engineering best practices
+- Production-ready modular ML pipeline
+- Artifact-driven workflow
+- Configuration-driven architecture
+- YAML-based configuration management
+- Strongly typed Configuration & Artifact entities
+- Centralized logging
+- Custom exception handling
+- Clean separation of pipeline components
 
-### 📥 Data Ingestion
+---
 
-* Automated dataset loading
-* Dataset path validation
-* Artifact-based data ingestion workflow
+## 📥 Data Ingestion
 
-### ✅ Data Validation
+- Configuration-driven dataset management
+- Automated dataset ingestion
+- Artifact generation
+- Modular ingestion workflow
 
-* Schema-based dataset validation
-* Automatic column consistency checks
-* Validation status tracking through pipeline artifacts
+---
 
-### 📊 Exploratory Data Analysis (EDA)
+## ✅ Data Validation
 
-* Dataset overview and quality assessment
-* Missing value analysis
-* Duplicate record detection
-* Data type analysis
-* Univariate analysis
-* Bivariate analysis
-* Distribution analysis for numerical features
-* Category-wise churn analysis
-* Correlation analysis
-* Outlier detection
+- Schema-based validation
+- Dataset column verification
+- Validation artifact generation
+- Pipeline-ready validation component
 
-### 📈 Statistical Analysis
+---
 
-* Chi-Square Test for categorical feature significance
-* Correlation Matrix for numerical features
-* Variance Inflation Factor (VIF) for multicollinearity detection
-* Statistical feature selection and validation
+## 📊 Exploratory Data Analysis
 
-### ⚙️ Data Transformation
+- Dataset overview
+- Missing value analysis
+- Duplicate analysis
+- Data type analysis
+- Univariate analysis
+- Bivariate analysis
+- Numerical feature distributions
+- Categorical feature analysis
+- Churn distribution analysis
+- Correlation analysis
+- Outlier detection
 
-* Automated train-test splitting with stratification
-* Feature preprocessing using Scikit-learn Pipelines
-* Numerical feature scaling using StandardScaler
-* Categorical feature encoding using OneHotEncoder
-* ColumnTransformer-based preprocessing
-* Serialization of preprocessing pipeline
-* Processed dataset export as NumPy arrays
+---
 
-### 🛠 Utility Module
+## 📈 Statistical Analysis
 
-* YAML configuration reader
-* CSV read/write utilities
-* Object serialization using Joblib
-* NumPy array persistence
-* Directory management utilities
-* Reusable helper functions for pipeline components
+- Chi-Square Test
+- Correlation Matrix
+- Variance Inflation Factor (VIF)
+- Feature significance analysis
+- Multicollinearity detection
 
-### 📝 Logging & Exception Handling
+---
 
-* Centralized logging framework
-* Custom exception handling
-* Component-level execution tracking
-* Debug-friendly pipeline logs
+## ⚙️ Data Transformation
 
-### 🚧 Upcoming Features
+- Train-test split with stratification
+- Missing value imputation using SimpleImputer
+- Numerical preprocessing using StandardScaler
+- Categorical preprocessing using OneHotEncoder
+- Unified preprocessing using ColumnTransformer
+- Scikit-learn preprocessing pipeline
+- Joblib serialization
+- NumPy dataset export
+- Artifact-driven transformation workflow
 
-* Model Training
-* Model Evaluation
-* Prediction Pipeline
-* FastAPI REST API
-* Docker Containerization
-* CI/CD Integration
-* Model Deployment
-* Monitoring & Logging Enhancements
+---
+
+## 🛠 Utility Module
+
+- YAML reader
+- CSV utilities
+- Object serialization
+- NumPy array persistence
+- Directory management
+- Common reusable helper functions
+
+---
+
+## 📝 Logging & Exception Handling
+
+- Centralized logging framework
+- Component-level execution logs
+- Custom exception handling
+- Pipeline execution tracking
+- Debug-friendly log messages
+
+---
+
+# 🚧 Upcoming Features
+
+- Model Training
+- Multiple Model Comparison
+- Hyperparameter Tuning
+- Model Evaluation
+- Prediction Pipeline
+- MLflow Experiment Tracking
+- FastAPI REST API
+- Docker Containerization
+- PostgreSQL Integration
+- CI/CD Pipeline
+- Cloud Deployment
+- Monitoring & Logging
+
+---
+
+# 📌 Current Status
+
+**Completed:** ✅ Phase 01 → Phase 04
+
+The project now includes a complete production-style data preparation pipeline capable of:
+
+- Ingesting raw data
+- Validating dataset schema
+- Performing exploratory analysis
+- Transforming features using Scikit-learn pipelines
+- Producing model-ready training and testing datasets
+
+The next milestone is **Phase 05: Model Training**, where multiple machine learning models will be trained, compared, and serialized for deployment.

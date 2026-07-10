@@ -33,7 +33,7 @@ class DataValidation:
         self.config = config
         self.ingestion_artifact = ingestion_artifact
 
-    def validate_dataset(self) -> DataValidationArtifact:
+    def initiate_data_validation(self) -> DataValidationArtifact:
 
         try:
 
@@ -44,6 +44,9 @@ class DataValidation:
             df = read_csv(
                 self.ingestion_artifact.raw_data_path
             )
+            
+            if df.empty:
+                raise ValueError("Dataset is empty.")
 
             schema = read_yaml(
                 self.config.schema_path
@@ -53,12 +56,9 @@ class DataValidation:
                 schema["columns"].keys()
             )
 
-            missing_columns = []
-
-            for column in expected_columns:
-
-                if column not in df.columns:
-                    missing_columns.append(column)
+            missing_columns = list(
+                set(expected_columns) - set(df.columns)
+            )
 
             if missing_columns:
 

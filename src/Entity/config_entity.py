@@ -6,12 +6,12 @@ from pathlib import Path
 # Data Ingestion
 # ==============================
 
-@dataclass(frozen=True)
+@dataclass
 class DataIngestionConfig:
 
     root_dir: Path
 
-    source_url: str
+    source_data_path: Path
 
     local_data_file: Path
 
@@ -19,7 +19,7 @@ class DataIngestionConfig:
 # Data Validation
 # ==============================
 
-@dataclass(frozen=True)
+@dataclass
 class DataValidationConfig:
 
     root_dir: Path
@@ -32,7 +32,7 @@ class DataValidationConfig:
 # Data Transformation
 # ==============================
 
-@dataclass(frozen=True)
+@dataclass
 class DataTransformationConfig:
 
     root_dir: Path
@@ -48,7 +48,7 @@ class DataTransformationConfig:
 # Model Trainer
 # ==============================
 
-@dataclass(frozen=True)
+@dataclass
 class ModelTrainerConfig:
 
     root_dir: Path
