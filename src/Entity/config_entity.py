@@ -58,3 +58,7 @@ class ModelTrainerConfig:
     test_array_path: Path
 
     trained_model_path: Path
+
+    metrics_file_path: Path
+
+    model_report_path: Path

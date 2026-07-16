@@ -40,3 +40,7 @@ model_trainer:
   test_array_path: artifacts/data_transformation/test.npy
 
   trained_model_path: artifacts/model_trainer/model.pkl
+
+  metrics_file_path: artifacts/model_trainer/metrics.json
+  
+  model_report_path: artifacts/model_trainer/model_report.csv

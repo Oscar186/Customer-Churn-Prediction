@@ -248,7 +248,14 @@ class DataTransformation:
 
                 test_array_path=self.config.test_array_path,
 
-                preprocessor_path=self.config.preprocessor_path
+                preprocessor_path=self.config.preprocessor_path,
+                
+                # trained_model_path = self.config.trained_model_path,
+
+                # metrics_path = self.config.metrics_path,
+
+                # report_path = self.config.report_path
+
 
             )
 

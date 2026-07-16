@@ -1,6 +1,7 @@
 from pathlib import Path
 import yaml
-
+# import os
+from src.Utils.common import create_directories
 from src.Entity.config_entity import (
     DataIngestionConfig,
     DataValidationConfig,
@@ -59,16 +60,28 @@ class ConfigurationManager:
             data_path=Path(config["data_path"]),
             preprocessor_path=Path(config["preprocessor_path"]),
             train_array_path=Path(config["train_array_path"]),
-            test_array_path=Path(config["test_array_path"])
+            test_array_path=Path(config["test_array_path"]),
+            # trained_model_path = Path(config["trained_model_path"])
         )
     
     def get_model_trainer_config(self):
 
-        config = self.get("model_trainer")
+        config = self.config["model_trainer"]
+
+        create_directories([config["root_dir"]])
 
         return ModelTrainerConfig(
+
             root_dir=Path(config["root_dir"]),
-            train_array_path=Path(config["train_array_path"]),
-            test_array_path=Path(config["test_array_path"]),
-            trained_model_path=Path(config["trained_model_path"])
+
+            trained_model_path=Path(config["trained_model_path"]),
+
+            metrics_file_path=Path(config["metrics_file_path"]),
+
+            model_report_path=Path(config["model_report_path"]),
+
+            test_array_path= Path(config['test_array_path']),
+
+            train_array_path= Path(config['test_array_path'])
+
         )

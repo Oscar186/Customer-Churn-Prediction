@@ -35,6 +35,12 @@ class DataTransformationArtifact:
 
     preprocessor_path: Path
 
+    # trained_model_path: str
+
+    # metrics_path: str
+
+    # report_path: str
+
 
 # ==========================
 # Model Trainer
@@ -45,6 +51,14 @@ class ModelTrainerArtifact:
 
     trained_model_path: Path
 
-    train_score: float
+    metrics_file_path: Path
 
-    test_score: float
+    report_file_path: Path
+
+    best_model_name: str
+
+    best_score: float
+
+    # train_score: float
+
+    # test_score: float

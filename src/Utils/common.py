@@ -6,7 +6,7 @@ import numpy as np
 import joblib
 from src.logger import logger
 from src.exception import CustomException
-
+import json
 
 def read_yaml(file_path):
     """
@@ -72,7 +72,7 @@ def read_csv(file_path):
 
         df = pd.read_csv(file_path)
 
-        logger.info(f"Dataset loaded successfully.")
+        logger.info("Dataset loaded successfully.")
         logger.info(f"Dataset Shape: {df.shape}")
 
         return df
@@ -156,6 +156,49 @@ def load_numpy_array(file_path):
         return array
 
     except Exception as e:
+        raise CustomException(e, sys)
+    
+def save_json(file_path, data):
+    """
+    Save dictionary as JSON.
+
+    Args:
+        file_path (str | Path)
+        data (dict)
+    """
+    try:
+        ensure_parent_directory(file_path)
+
+        logger.info(f"Saving JSON file: {file_path}")
+
+        with open(file_path, "w") as file:
+            json.dump(data, file, indent=4)
+
+        logger.info("JSON file saved successfully.")
+
+    except Exception as e:
+        logger.error("Unable to save JSON file.")
+        raise CustomException(e, sys)
+    
+def save_dataframe(file_path, df):
+    """
+    Save DataFrame to CSV.
+
+    Args:
+        file_path (str | Path)
+        df (pd.DataFrame)
+    """
+    try:
+        ensure_parent_directory(file_path)
+
+        logger.info(f"Saving DataFrame: {file_path}")
+
+        df.to_csv(file_path, index=False)
+
+        logger.info("DataFrame saved successfully.")
+
+    except Exception as e:
+        logger.error("Unable to save DataFrame.")
         raise CustomException(e, sys)
     
 def ensure_parent_directory(file_path):
