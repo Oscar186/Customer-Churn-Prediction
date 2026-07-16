@@ -16,7 +16,7 @@ Build an end-to-end Machine Learning system capable of predicting customer churn
 - [x] Phase 02 - Data Ingestion & Validation
 - [x] Phase 03 - Exploratory Data Analysis
 - [x] Phase 04 - Data Transformation
-- [ ] Phase 05 - Model Training
+- [x] Phase 05 - Model Training
 - [ ] Phase 06 - Model Evaluation
 - [ ] Phase 07 - MLflow Integration
 - [ ] Phase 08 - FastAPI Integration
@@ -105,6 +105,31 @@ Build an end-to-end Machine Learning system capable of predicting customer churn
 
 ---
 
+## ✅ Phase 05: Model Training
+
+- Implemented modular Model Trainer component
+- Automated loading of transformed training and testing datasets
+- Built reusable multi-model training framework
+- Trained multiple classification algorithms:
+  - Logistic Regression
+  - Decision Tree
+  - Random Forest
+  - Gradient Boosting
+  - AdaBoost
+- Evaluated models using:
+  - Accuracy
+  - Precision
+  - Recall
+  - F1 Score
+  - ROC-AUC Score
+- Automatically selected the best-performing model based on ROC-AUC
+- Serialized the trained model using Joblib
+- Generated model performance report
+- Saved evaluation metrics as JSON
+- Integrated Model Trainer into the end-to-end training pipeline
+
+---
+
 # 🔄 Training Pipeline Workflow
 
 ```text
@@ -123,7 +148,15 @@ Data Transformation
 Train/Test NumPy Arrays
       │
       ▼
-Model Training (Upcoming)
+Model Training
+      │
+      ▼
+Best Model Selection
+      │
+      ▼
+model.pkl
+metrics.json
+model_report.csv
 ```
 
 ---
@@ -277,7 +310,9 @@ customer-churn-prediction/
 ## 🛠 Utility Module
 
 - YAML reader
-- CSV utilities
+- CSV reader & writer
+- JSON persistence
+- DataFrame persistence
 - Object serialization
 - NumPy array persistence
 - Directory management
@@ -295,15 +330,29 @@ customer-churn-prediction/
 
 ---
 
+## 🤖 Model Training
+
+- Modular Model Trainer component
+- Automated loading of transformed datasets
+- Multiple model training
+- Model comparison framework
+- Performance evaluation using multiple classification metrics
+- Automatic best model selection using ROC-AUC
+- Joblib model serialization
+- JSON metrics generation
+- CSV model performance report generation
+- Artifact-driven model training workflow
+
+---
+
 # 🚧 Upcoming Features
 
-- Model Training
-- Multiple Model Comparison
-- Hyperparameter Tuning
+
 - Model Evaluation
+- Model Pusher
 - Prediction Pipeline
-- MLflow Experiment Tracking
 - FastAPI REST API
+- MLflow Experiment Tracking
 - Docker Containerization
 - PostgreSQL Integration
 - CI/CD Pipeline
@@ -314,14 +363,37 @@ customer-churn-prediction/
 
 # 📌 Current Status
 
-**Completed:** ✅ Phase 01 → Phase 04
+# 📌 Current Status
 
-The project now includes a complete production-style data preparation pipeline capable of:
+**Completed:** ✅ Phase 01 → Phase 05
 
-- Ingesting raw data
+The project now includes a complete production-grade machine learning training pipeline capable of:
+
+- Ingesting raw datasets
 - Validating dataset schema
-- Performing exploratory analysis
-- Transforming features using Scikit-learn pipelines
-- Producing model-ready training and testing datasets
+- Performing exploratory data analysis
+- Transforming features using Scikit-learn preprocessing pipelines
+- Generating train/test datasets
+- Training multiple machine learning models
+- Comparing model performance using classification metrics
+- Selecting the best model based on ROC-AUC
+- Persisting trained models and evaluation artifacts for deployment
 
-The next milestone is **Phase 05: Model Training**, where multiple machine learning models will be trained, compared, and serialized for deployment.
+Generated artifacts include:
+
+```text
+artifacts/
+├── data_ingestion/
+├── data_validation/
+├── data_transformation/
+│   ├── preprocessor.pkl
+│   ├── train.npy
+│   └── test.npy
+│
+└── model_trainer/
+    ├── model.pkl
+    ├── metrics.json
+    └── model_report.csv
+```
+
+The next milestone is **Phase 06: Model Evaluation**, where the newly trained model will be validated against the currently deployed model before promotion to production.
