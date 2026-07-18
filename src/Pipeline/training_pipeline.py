@@ -3,10 +3,11 @@ from src.Components.data_validation import DataValidation
 from src.Components.data_transformation import DataTransformation
 from src.Config.Configuration import ConfigurationManager
 from src.Components.model_trainer import ModelTrainer
-
+from src.Components.model_evaluation import ModelEvaluation
+from src.Entity.artifact_entity import ModelEvaluationArtifact
 class TrainingPipeline:
-    # def __init__(self):
-    #     self.config = ConfigurationManager()
+    # def __init__(self,):
+        # self.config = ConfigurationManager()
     def start(self):
 
         config = ConfigurationManager()
@@ -25,14 +26,21 @@ class TrainingPipeline:
         )
         transformation_artifact = transformation.initiate_data_transformation()
 
-        # return transformation_artifact
 
         training_config = config.get_model_trainer_config()
         trainer = ModelTrainer(training_config, transformation_artifact)
-
         trainer_artifact = trainer.initiate_model_trainer()
 
-        return trainer_artifact
+        evaluation_config = config.get_model_evaluation_config()
+        evaluater = ModelEvaluation(
+            config=evaluation_config,
+            data_transformation_artifact = transformation_artifact,
+            model_trainer_artifact= trainer_artifact
+        )
+
+        evaluater_artifact = evaluater.initiate_model_evaluation()
+
+        return evaluater_artifact
     
 if __name__ == "__main__":
     pipeline = TrainingPipeline()

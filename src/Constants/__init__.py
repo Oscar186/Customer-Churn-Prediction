@@ -1,0 +1,3 @@
+MODEL_EVALUATION_CONFIG_KEY = "model_evaluation"
+MODEL_EVALUATION_CHANGED_THRESHOLD_SCORE_KEY = "changed_threshold_score"
+MODEL_EVALUATION_FILE_PATH_KEY = "model_evaluation_file_path"

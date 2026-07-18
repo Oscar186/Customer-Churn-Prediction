@@ -62,3 +62,9 @@ class ModelTrainerConfig:
     metrics_file_path: Path
 
     model_report_path: Path
+
+
+@dataclass
+class ModelEvaluationConfig:
+    changed_threshold_score: float
+    model_evaluation_file_path: str

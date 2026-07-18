@@ -35,6 +35,24 @@ def read_yaml(file_path):
         logger.error("Unable to read YAML.")
 
         raise CustomException(e, sys)
+    
+def save_yaml(file_path,data):
+    try:
+
+        logger.info(f"Saving YAML file : {file_path}")
+
+        with open(file_path, "w") as file:
+            data = yaml.dump(data,file,sort_keys=False)
+
+        logger.info("YAML file Saved Successfully.")
+
+        return data
+
+    except Exception as e:
+
+        logger.error("Unable to save YAML file.")
+
+        raise CustomException(e, sys)
 
 def create_directories(paths):
     """

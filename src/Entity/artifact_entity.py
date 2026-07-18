@@ -62,3 +62,10 @@ class ModelTrainerArtifact:
     # train_score: float
 
     # test_score: float
+
+@dataclass
+class ModelEvaluationArtifact:
+    is_model_accepted: bool
+    accuracy_difference: float
+    best_model_path: Path
+    trained_model_path: Path

@@ -44,3 +44,7 @@ model_trainer:
   metrics_file_path: artifacts/model_trainer/metrics.json
   
   model_report_path: artifacts/model_trainer/model_report.csv
+
+model_evaluation:
+  changed_threshold_score: 0.02
+  model_evaluation_file_path: artifacts/model_evaluation/evaluation.yaml

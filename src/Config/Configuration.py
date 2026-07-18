@@ -6,7 +6,13 @@ from src.Entity.config_entity import (
     DataIngestionConfig,
     DataValidationConfig,
     DataTransformationConfig,
-    ModelTrainerConfig
+    ModelTrainerConfig,
+    ModelEvaluationConfig
+)
+from src.Constants import (
+    MODEL_EVALUATION_CHANGED_THRESHOLD_SCORE_KEY,
+    MODEL_EVALUATION_CONFIG_KEY,
+    MODEL_EVALUATION_FILE_PATH_KEY
 )
 
 
@@ -85,3 +91,13 @@ class ConfigurationManager:
             train_array_path= Path(config['test_array_path'])
 
         )
+    
+    def get_model_evaluation_config(self) -> ModelEvaluationConfig:
+        
+        config = self.config[MODEL_EVALUATION_CONFIG_KEY]
+
+        return ModelEvaluationConfig(
+            changed_threshold_score=config[MODEL_EVALUATION_CHANGED_THRESHOLD_SCORE_KEY],
+            model_evaluation_file_path=Path(config[MODEL_EVALUATION_FILE_PATH_KEY])
+        )
+
