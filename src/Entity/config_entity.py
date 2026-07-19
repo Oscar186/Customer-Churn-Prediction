@@ -63,8 +63,16 @@ class ModelTrainerConfig:
 
     model_report_path: Path
 
+# ==============================
+# Model Evaluator
+# ==============================
 
 @dataclass
 class ModelEvaluationConfig:
     changed_threshold_score: float
     model_evaluation_file_path: str
+
+@dataclass
+class ModelPusherConfig:
+    saved_model_dir: str
+    model_file_name: str

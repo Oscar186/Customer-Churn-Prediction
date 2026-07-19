@@ -4,7 +4,9 @@ from src.Components.data_transformation import DataTransformation
 from src.Config.Configuration import ConfigurationManager
 from src.Components.model_trainer import ModelTrainer
 from src.Components.model_evaluation import ModelEvaluation
-from src.Entity.artifact_entity import ModelEvaluationArtifact
+from src.Entity.artifact_entity import ModelPusherArtifact
+from src.Components.model_pusher import ModelPusher
+
 class TrainingPipeline:
     # def __init__(self,):
         # self.config = ConfigurationManager()
@@ -37,11 +39,17 @@ class TrainingPipeline:
             data_transformation_artifact = transformation_artifact,
             model_trainer_artifact= trainer_artifact
         )
-
         evaluater_artifact = evaluater.initiate_model_evaluation()
 
-        return evaluater_artifact
+        model_pusher_config = config.get_model_pusher_config()
+        model_pusher = ModelPusher(config= model_pusher_config,model_evaluation_artifact = evaluater_artifact)
+        # return evaluater_artifact
+        model_pusher_artifact = ModelPusherArtifact(
+            model_pusher.initiate_model_pusher()
+        )
     
+        return model_pusher_artifact
+
 if __name__ == "__main__":
     pipeline = TrainingPipeline()
     pipeline.start()

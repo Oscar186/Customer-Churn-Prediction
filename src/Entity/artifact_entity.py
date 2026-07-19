@@ -69,3 +69,8 @@ class ModelEvaluationArtifact:
     accuracy_difference: float
     best_model_path: Path
     trained_model_path: Path
+
+
+@dataclass
+class ModelPusherArtifact:
+    saved_model_path: str | None

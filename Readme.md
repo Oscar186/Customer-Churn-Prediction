@@ -437,6 +437,5 @@ artifacts/
 └── model_evaluation/
     └── evaluation.yaml
 ```
-
 The next milestone is **Phase 07 – Model Pusher & Model Registry**, where accepted models will be promoted to a production-ready model registry, laying the foundation for deployment and model lifecycle management.
 ```

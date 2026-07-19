@@ -46,5 +46,13 @@ model_trainer:
   model_report_path: artifacts/model_trainer/model_report.csv
 
 model_evaluation:
+
   changed_threshold_score: 0.02
+
   model_evaluation_file_path: artifacts/model_evaluation/evaluation.yaml
+
+model_pusher:
+
+  saved_model_dir: production_models
+
+  model_file_name: model.pkl
