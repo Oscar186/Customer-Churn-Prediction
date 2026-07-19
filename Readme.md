@@ -18,7 +18,7 @@ Build an end-to-end Machine Learning system capable of predicting customer churn
 - [x] Phase 04 - Data Transformation
 - [x] Phase 05 - Model Training
 - [x] Phase 06 - Model Evaluation
-- [ ] Phase 07 - Model Pusher & Model Registry
+- [x] Phase 07 - Model Pusher & Model Registry
 - [ ] Phase 08 - Prediction Pipeline & FastAPI
 - [ ] Phase 09 - MLflow Integration
 - [ ] Phase 10 - Dockerization
@@ -150,6 +150,19 @@ Build an end-to-end Machine Learning system capable of predicting customer churn
 
 ---
 
+## ✅ Phase 07: Model Pusher & Model Registry
+
+- Implemented modular Model Pusher component
+- Built a local production Model Registry
+- Promoted accepted models to the production registry
+- Added configuration-driven model promotion workflow
+- Automatically copied accepted models into the production directory
+- Introduced Model Pusher configuration and artifact entities
+- Integrated Model Pusher into the end-to-end training pipeline
+- Established the foundation for the Prediction Pipeline and deployment
+
+---
+
 
 # 🔄 Training Pipeline Workflow
 
@@ -172,16 +185,26 @@ Train/Test NumPy Arrays
 Model Training
       │
       ▼
-Best Candidate Model
+Best Model Selection
       │
       ▼
 Model Evaluation
       │
       ▼
-evaluation.yaml
+Model Accepted?
       │
-      ▼
-ModelEvaluationArtifact
+ ┌────┴────┐
+ │         │
+No        Yes
+ │         │
+ │         ▼
+ │   Model Pusher
+ │         │
+ │         ▼
+ │   Production Model Registry
+ │
+ ▼
+Training Completed
 ```
 
 ---
@@ -211,7 +234,8 @@ customer-churn-prediction/
 │
 ├── logs/
 │
-├── models/
+├── production_models/
+│   └── model.pkl
 │
 ├── notebooks/
 │
@@ -226,7 +250,8 @@ customer-churn-prediction/
 │   │   ├── data_validation.py
 │   │   ├── data_transformation.py
 │   │   ├── model_trainer.py
-│   │   └── model_evaluation.py
+|   |   ├── model_evaluation.py|  
+│   │   └── model_pusher.py
 │   │
 │   ├── Config/
 │   │   └── configuration.py
@@ -371,24 +396,30 @@ customer-churn-prediction/
 
 ---
 
-## 📋 Model Evaluation
+## 🚀 Model Evaluation & Model Registry
+
+### 📊 Model Evaluation
 
 - Modular Model Evaluation component
-- Automated loading of transformed test dataset
-- Candidate model loading from persisted artifacts
-- Model performance evaluation using multiple classification metrics
+- Automated loading of candidate model
+- Performance evaluation using classification metrics
 - Evaluation report generation in YAML format
-- ModelEvaluationArtifact generation
 - Configuration-driven evaluation workflow
-- Artifact-driven pipeline communication
+- Artifact-driven model evaluation
 - Foundation for production model comparison
 
----
+### 📦 Model Pusher & Model Registry
+
+- Modular Model Pusher component
+- Local production Model Registry
+- Automated model promotion after successful evaluation
+- Production-ready model persistence
+- Artifact-driven model deployment workflow
+- Configuration-based production model management
 
 
 # 🚧 Upcoming Features
 
-- Model Pusher & Model Registry
 - Prediction Pipeline
 - FastAPI REST API
 - MLflow Experiment Tracking
@@ -402,7 +433,7 @@ customer-churn-prediction/
 
 # 📌 Current Status
 
-**Completed:** ✅ Phase 01 → Phase 06
+**Completed:** ✅ Phase 01 → Phase 07
 
 The project now includes a complete production-grade machine learning training pipeline capable of:
 
@@ -412,14 +443,13 @@ The project now includes a complete production-grade machine learning training p
 - Transforming features using Scikit-learn preprocessing pipelines
 - Generating train/test datasets
 - Training multiple machine learning models
-- Comparing candidate models using multiple classification metrics
-- Selecting the best-performing model based on ROC-AUC
-- Evaluating the trained candidate model on unseen test data
-- Generating evaluation reports for deployment decisions
-- Persisting trained models, metrics, reports, and evaluation artifacts
+- Comparing model performance using classification metrics
+- Automatically selecting the best-performing model
+- Evaluating candidate models before production promotion
+- Maintaining a local production Model Registry
+- Promoting accepted models for deployment
 
 Generated artifacts include:
-
 ```text
 artifacts/
 ├── data_ingestion/
@@ -436,6 +466,8 @@ artifacts/
 │
 └── model_evaluation/
     └── evaluation.yaml
+production_models/
+└── model.pkl
 ```
-The next milestone is **Phase 07 – Model Pusher & Model Registry**, where accepted models will be promoted to a production-ready model registry, laying the foundation for deployment and model lifecycle management.
+The next milestone is Phase 08: Prediction Pipeline & FastAPI, where the production model will be exposed through a REST API capable of making real-time customer churn predictions.
 ```
