@@ -63,6 +63,10 @@ class ModelTrainerArtifact:
 
     # test_score: float
 
+# ==========================
+# Model Evaluator
+# ==========================
+
 @dataclass
 class ModelEvaluationArtifact:
     is_model_accepted: bool
@@ -70,6 +74,9 @@ class ModelEvaluationArtifact:
     best_model_path: Path
     trained_model_path: Path
 
+# ==========================
+# Model Pusher
+# ==========================
 
 @dataclass
 class ModelPusherArtifact:

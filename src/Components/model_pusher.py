@@ -1,6 +1,8 @@
 from src.Entity.artifact_entity import (
     ModelEvaluationArtifact,
-    ModelPusherArtifact
+    ModelPusherArtifact,
+    DataTransformationArtifact,
+    ModelTrainerArtifact
 )
 from src.Entity.config_entity import ModelPusherConfig
 from shutil import copy2
@@ -14,28 +16,34 @@ class ModelPusher:
 
     def __init__(self,
         config: ModelPusherConfig,
-        model_evaluation_artifact: ModelEvaluationArtifact
+        model_evaluation_artifact: ModelEvaluationArtifact,
+        data_transformation_artifact: DataTransformationArtifact,
+        model_trainer_artifact: ModelTrainerArtifact
     ):
         self.config = config
         self.model_evaluation_artifact = model_evaluation_artifact
+        self.data_transformation_artifact = data_transformation_artifact
+        self.model_trainer_artifact = model_trainer_artifact
 
     def push_model(self):
 
         try:
 
-            # logger.info("Starting Model Pusher.")
-
             logger.info("Copying accepted model to production directory.")
 
             saved_model_path = (Path(self.config.saved_model_dir)/self.config.model_file_name)
-            source_path = self.model_evaluation_artifact.trained_model_path
+            model_source = self.model_evaluation_artifact.trained_model_path
+            preprocessor_source = self.data_transformation_artifact.preprocessor_path
             ensure_parent_directory(saved_model_path)
 
-            # logger.info("Copying accepted model to production directory.")
+            model_destination = (Path(self.config.saved_model_dir)/ "model.pkl")
+            preprocessor_destination = (Path(self.config.saved_model_dir)/ "preprocessor.pkl")
+            ensure_parent_directory(model_destination)
 
-            copy2(source_path,saved_model_path)
+            copy2(model_source, model_destination)
+            copy2(preprocessor_source, preprocessor_destination)
 
-            logger.info('Successfully copied model to prodcution directory.')
+            logger.info('Successfully copied model to production directory.')
 
             return saved_model_path
         
@@ -43,7 +51,6 @@ class ModelPusher:
             raise CustomException(e, sys)
 
     def initiate_model_pusher(self):
-        # pass
 
         try:
             logger.info("Starting Model Pusher.")

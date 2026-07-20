@@ -13,13 +13,17 @@ class TrainingPipeline:
     def start(self):
 
         config = ConfigurationManager()
+
+        
         ingestion_config = config.get_data_ingestion_config()
         ingestion = DataIngestion(ingestion_config)
         ingestion_artifact = ingestion.initiate_data_ingestion()
 
+
         validation_config = config.get_data_validation_config()
         validation = DataValidation(validation_config, ingestion_artifact)
         validation_artifact = validation.initiate_data_validation()
+
 
         transformation_config = config.get_data_transformation_config()
         transformation = DataTransformation(
@@ -33,6 +37,7 @@ class TrainingPipeline:
         trainer = ModelTrainer(training_config, transformation_artifact)
         trainer_artifact = trainer.initiate_model_trainer()
 
+
         evaluation_config = config.get_model_evaluation_config()
         evaluater = ModelEvaluation(
             config=evaluation_config,
@@ -41,9 +46,9 @@ class TrainingPipeline:
         )
         evaluater_artifact = evaluater.initiate_model_evaluation()
 
+
         model_pusher_config = config.get_model_pusher_config()
-        model_pusher = ModelPusher(config= model_pusher_config,model_evaluation_artifact = evaluater_artifact)
-        # return evaluater_artifact
+        model_pusher = ModelPusher(config= model_pusher_config,model_evaluation_artifact = evaluater_artifact,data_transformation_artifact= transformation_artifact, model_trainer_artifact=trainer_artifact)
         model_pusher_artifact = ModelPusherArtifact(
             model_pusher.initiate_model_pusher()
         )

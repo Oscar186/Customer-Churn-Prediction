@@ -56,3 +56,5 @@ model_pusher:
   saved_model_dir: production_models
 
   model_file_name: model.pkl
+  
+  preprocessor_file_name: preprocessor.pkl

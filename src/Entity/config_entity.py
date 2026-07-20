@@ -72,7 +72,12 @@ class ModelEvaluationConfig:
     changed_threshold_score: float
     model_evaluation_file_path: str
 
+# ==============================
+# Model Pusher
+# ==============================
+
 @dataclass
 class ModelPusherConfig:
     saved_model_dir: str
     model_file_name: str
+    preprocessor_file_name: str

@@ -16,7 +16,8 @@ from src.Constants import (
     MODEL_EVALUATION_FILE_PATH_KEY,
     MODEL_PUSHER_CONFIG_KEY,
     SAVED_MODEL_DIR_KEY,
-    MODEL_FILE_NAME_KEY
+    MODEL_FILE_NAME_KEY,
+    Preprocessor_FILE_NAME_KEY
 )
 
 
@@ -129,7 +130,9 @@ class ConfigurationManager:
 
             saved_model_dir=Path(config[SAVED_MODEL_DIR_KEY]),
 
-            model_file_name=Path(config[MODEL_FILE_NAME_KEY])
+            model_file_name=Path(config[MODEL_FILE_NAME_KEY]),
+
+            preprocessor_file_name=Path(config[Preprocessor_FILE_NAME_KEY])
 
         )
 
