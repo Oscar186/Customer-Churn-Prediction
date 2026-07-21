@@ -10,6 +10,7 @@ Build an end-to-end Machine Learning system capable of predicting customer churn
 
 ---
 
+
 # 🛣️ Roadmap
 
 - [x] Phase 01 - Project Setup
@@ -19,7 +20,7 @@ Build an end-to-end Machine Learning system capable of predicting customer churn
 - [x] Phase 05 - Model Training
 - [x] Phase 06 - Model Evaluation
 - [x] Phase 07 - Model Pusher & Model Registry
-- [ ] Phase 08 - Prediction Pipeline & FastAPI
+- [x] Phase 08 - Prediction Pipeline & FastAPI
 - [ ] Phase 09 - MLflow Integration
 - [ ] Phase 10 - Dockerization
 - [ ] Phase 11 - Cloud Deployment
@@ -42,13 +43,14 @@ Build an end-to-end Machine Learning system capable of predicting customer churn
 - Logging
 - Git
 - GitHub
+- FastAPI
+- Pydantic
 
 ## Upcoming
 
-- FastAPI
-- PostgreSQL
 - MLflow
 - Docker
+- PostgreSQL
 - Airflow
 - CI/CD
 - Cloud Deployment
@@ -153,13 +155,31 @@ Build an end-to-end Machine Learning system capable of predicting customer churn
 ## ✅ Phase 07: Model Pusher & Model Registry
 
 - Implemented modular Model Pusher component
-- Built a local production Model Registry
-- Promoted accepted models to the production registry
-- Added configuration-driven model promotion workflow
-- Automatically copied accepted models into the production directory
-- Introduced Model Pusher configuration and artifact entities
+- Promoted only accepted models to production
+- Created a dedicated production model directory
+- Copied trained model to the production registry
+- Copied preprocessing pipeline for inference
+- Added Model Pusher artifact for pipeline communication
 - Integrated Model Pusher into the end-to-end training pipeline
-- Established the foundation for the Prediction Pipeline and deployment
+- Established the foundation for model versioning and deployment
+
+---
+
+## ✅ Phase 08: Prediction Pipeline & FastAPI
+
+- Implemented reusable Prediction Pipeline
+- Built CustomerData class for inference inputs
+- Loaded production model and preprocessor
+- Generated churn predictions for new customer records
+- Added probability estimation using predict_proba()
+- Built production-ready FastAPI application
+- Implemented request validation using Pydantic
+- Added structured API response models
+- Created Health Check endpoint
+- Created Prediction endpoint
+- Added Swagger/OpenAPI documentation
+- Improved API error handling and logging
+- Separated training and inference pipelines
 
 ---
 
@@ -179,32 +199,25 @@ Data Validation
 Data Transformation
       │
       ▼
-Train/Test NumPy Arrays
+Train/Test Arrays
       │
       ▼
 Model Training
       │
       ▼
-Best Model Selection
-      │
-      ▼
 Model Evaluation
       │
       ▼
-Model Accepted?
+Model Pusher
       │
- ┌────┴────┐
- │         │
-No        Yes
- │         │
- │         ▼
- │   Model Pusher
- │         │
- │         ▼
- │   Production Model Registry
- │
- ▼
-Training Completed
+      ▼
+Production Models
+      │
+      ▼
+Prediction Pipeline
+      │
+      ▼
+FastAPI REST API
 ```
 
 ---
@@ -215,6 +228,9 @@ Training Completed
 customer-churn-prediction/
 │
 ├── app/                             # FastAPI application
+|   ├── __init__.py
+|   ├── main.py
+|   └── schema.py
 │
 ├── artifacts/                       # Generated pipeline artifacts
 |   ├── data_ingestion/
@@ -225,6 +241,7 @@ customer-churn-prediction/
 │
 ├── configs/                         # Configuration files
 │   ├── config.yaml
+│   ├── params.yaml
 │   └── schema.yaml
 │
 ├── data/
@@ -235,6 +252,7 @@ customer-churn-prediction/
 ├── logs/
 │
 ├── production_models/
+│   ├── preprocessor.pkl
 │   └── model.pkl
 │
 ├── notebooks/
@@ -246,6 +264,7 @@ customer-churn-prediction/
 │
 ├── src/
 │   ├── Components/
+│   │   ├── __init__.py
 │   │   ├── data_ingestion.py
 │   │   ├── data_validation.py
 │   │   ├── data_transformation.py
@@ -275,9 +294,13 @@ customer-churn-prediction/
 │   └── __init__.py
 │
 ├── temp/
-│
+|
+├── templates/
+│   └── index.html
+|
 ├── tests/
-│
+│   └── tests_prediction.py
+|
 ├── main.py
 ├── requirements.txt
 └── README.md
@@ -398,30 +421,40 @@ customer-churn-prediction/
 
 ## 🚀 Model Evaluation & Model Registry
 
-### 📊 Model Evaluation
+## 📊 Model Evaluation
 
-- Modular Model Evaluation component
-- Automated loading of candidate model
-- Performance evaluation using classification metrics
-- Evaluation report generation in YAML format
-- Configuration-driven evaluation workflow
-- Artifact-driven model evaluation
-- Foundation for production model comparison
+- Candidate model evaluation
+- Classification metric calculation
+- Acceptance decision logic
+- Evaluation report generation
+- YAML-based evaluation artifact
+- Production model comparison foundation
 
-### 📦 Model Pusher & Model Registry
+## 🚀 Model Registry & Deployment
 
-- Modular Model Pusher component
-- Local production Model Registry
-- Automated model promotion after successful evaluation
-- Production-ready model persistence
-- Artifact-driven model deployment workflow
-- Configuration-based production model management
+- Model promotion workflow
+- Production model registry
+- Automated model pushing
+- Artifact-driven deployment
+- Persistent production model storage
 
+---
+
+## 🌐 Prediction API
+
+- Customer input abstraction
+- Production prediction pipeline
+- FastAPI REST service
+- Pydantic request validation
+- Structured response model
+- Prediction probability estimation
+- Health Check endpoint
+- Interactive Swagger documentation
+
+---
 
 # 🚧 Upcoming Features
 
-- Prediction Pipeline
-- FastAPI REST API
 - MLflow Experiment Tracking
 - Docker Containerization
 - PostgreSQL Integration
@@ -433,23 +466,23 @@ customer-churn-prediction/
 
 # 📌 Current Status
 
-**Completed:** ✅ Phase 01 → Phase 07
+**Completed:** ✅ Phase 01 → Phase 08
 
-The project now includes a complete production-grade machine learning training pipeline capable of:
+The project now delivers a complete production-style machine learning workflow capable of:
 
 - Ingesting raw datasets
 - Validating dataset schema
 - Performing exploratory data analysis
-- Transforming features using Scikit-learn preprocessing pipelines
-- Generating train/test datasets
+- Transforming data using Scikit-learn preprocessing pipelines
 - Training multiple machine learning models
-- Comparing model performance using classification metrics
-- Automatically selecting the best-performing model
-- Evaluating candidate models before production promotion
-- Maintaining a local production Model Registry
-- Promoting accepted models for deployment
+- Selecting the best-performing model
+- Evaluating candidate models
+- Promoting accepted models to production
+- Serving predictions through a FastAPI REST API
+- Returning prediction probabilities for new customer records
 
-Generated artifacts include:
+Current production artifacts include:
+
 ```text
 artifacts/
 ├── data_ingestion/
@@ -467,7 +500,9 @@ artifacts/
 └── model_evaluation/
     └── evaluation.yaml
 production_models/
-└── model.pkl
+├── model.pkl
+└── preprocessor.pkl
+
 ```
-The next milestone is Phase 08: Prediction Pipeline & FastAPI, where the production model will be exposed through a REST API capable of making real-time customer churn predictions.
+The next milestone is **Phase 09 – MLflow Integration**, where experiment tracking, model versioning, and reproducibility will be introduced.
 ```

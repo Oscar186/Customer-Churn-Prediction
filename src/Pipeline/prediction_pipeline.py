@@ -2,8 +2,10 @@ import pandas as pd
 from src.logger import logger
 from src.exception import CustomException
 import sys
+from pathlib import Path
+from src.Utils.common import load_object
 class CustomerData:
-    # pass
+    
     def __init__(self,
         gender: str,
         SeniorCitizen: int,
@@ -48,7 +50,7 @@ class CustomerData:
     def get_data_as_dataframe(self):
         
         try: 
-            # logger.info('Entering Customer data...')
+
             logger.info("Creating customer input DataFrame.")
             customer_data = {
                 "gender": [self.gender],
@@ -73,12 +75,55 @@ class CustomerData:
             }
 
             data_frame = pd.DataFrame(customer_data)
-            # logger.info('Data Frame created successufully.')
+
             logger.info("Customer DataFrame created successfully.")
             return data_frame
+        
         except Exception as e:
             raise CustomException(e, sys)
-    
 
 class PredictionPipeline:
-    pass
+    
+    def __init__(self):
+
+        self.model_path = Path("production_models/model.pkl")
+        self.preprocessor_path = Path("production_models/preprocessor.pkl")
+
+    def predict(self, feature: pd.DataFrame):
+        
+        try:
+
+            logger.info("Loading production preprocessor.")
+            preprocessor = load_object(self.preprocessor_path)
+
+            logger.info("Loading production model.")
+            model = load_object(self.model_path)
+
+            logger.info("Transforming the features.")
+            transformed_features = preprocessor.transform(feature)
+
+            logger.info("Generating Prediction.")
+            prediction = model.predict(transformed_features)[0]
+
+            # probability = None
+
+            # if hasattr(model, "predict_proba"):
+            #     probability = model.predict_proba(transformed_features)[0][1]
+                
+            return prediction
+
+        except Exception as e:
+            raise CustomException(e, sys)
+        
+    def predict_proba(self, features):
+        try:
+
+            preprocessor = load_object(self.preprocessor_path)
+            model = load_object(self.model_path)
+
+            transformed = preprocessor.transform(features)
+
+            return model.predict_proba(transformed)
+
+        except Exception as e:
+            raise CustomException(e, sys)

@@ -53,6 +53,7 @@ class ModelPusher:
     def initiate_model_pusher(self):
 
         try:
+            
             logger.info("Starting Model Pusher.")
 
             if self.model_evaluation_artifact.is_model_accepted:
