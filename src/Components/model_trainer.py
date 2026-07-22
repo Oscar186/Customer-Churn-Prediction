@@ -1,5 +1,6 @@
 import sys
 import pandas as pd
+import time
 
 from src.logger import logger
 from src.exception import CustomException
@@ -27,7 +28,9 @@ from sklearn.metrics import (
     f1_score,
     roc_auc_score
 )
-
+from src.Utils.mlflow_utils import MLFlowManager
+import sklearn
+import platform
 class ModelTrainer:
 
     def __init__(self,config: ModelTrainerConfig, data_transformation_artifact: DataTransformationArtifact):
@@ -205,29 +208,86 @@ class ModelTrainer:
 
         try:
 
-            logger.info("Starting Model Trainer.")
+
+
+            logger.info("Starting Model Training.")
+
+            mlflowmanager = MLFlowManager("Customer-Churn")
+
+            mlflowmanager.set_experiment()
 
             X_train, y_train, X_test, y_test = self.load_train_test_data()
 
             models = self.get_models()
-            (
-                best_model,
-                best_model_name,
-                best_metrics,
-                report_df,
-                best_score
-            ) = self.get_best_model(
-                models,
-                X_train,
-                y_train,
-                X_test,
-                y_test
-            )
-            self.save_artifacts(
-                best_model=best_model,
-                report_df=report_df,
-                metrics=best_metrics
-            )
+
+            start_time = time.time()
+
+            with mlflowmanager.start_run():
+                (
+                    best_model,
+                    best_model_name,
+                    best_metrics,
+                    report_df,
+                    best_score
+                ) = self.get_best_model(
+                    models,
+                    X_train,
+                    y_train,
+                    X_test,
+                    y_test
+                )
+
+                self.save_artifacts(
+                    best_model=best_model,
+                    report_df=report_df,
+                    metrics=best_metrics
+                )
+                training_time = round(time.time() - start_time, 2)
+                mlflowmanager.log_metrics(best_metrics)
+                mlflowmanager.log_metrics(
+                    {
+                        "training_time_seconds": training_time
+                    }
+                )
+                mlflowmanager.log_params({
+                        "model_name": best_model.__class__.__name__,
+                        "train_rows": X_train.shape[0],
+                        "test_rows": X_test.shape[0],
+                        "features": X_train.shape[1]
+                    }
+                )
+                mlflowmanager.log_artifact(
+                    self.config.model_report_path,
+                    artifact_path="reports"
+                )
+                mlflowmanager.log_artifact(
+                    self.config.metrics_file_path,
+                    artifact_path="metrics"
+                )
+                mlflowmanager.log_artifact("configs/config.yaml", artifact_path= None)
+                mlflowmanager.log_artifact("configs/schema.yaml", artifact_path= None)
+                mlflowmanager.log_params({
+                    "python_version": platform.python_version(),
+                    "sklearn_version": sklearn.__version__,
+                })
+                mlflowmanager.log_tags(
+                    {
+                        "project": "Customer Churn Prediction",
+                        "framework": "Scikit-Learn",
+                        "stage": "Training",
+                        "algorithm": best_model_name,
+                        "version": "1.0"
+                    }
+                )
+
+                predictions = best_model.predict(X_train)
+
+                mlflowmanager.log_model(
+                    model=best_model,
+                    X_train=X_train,
+                    predictions=predictions
+                )
+
             logger.info(
                 f"Best Model : {best_model_name} | ROC AUC : {best_score:.4f}"
             )

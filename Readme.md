@@ -21,10 +21,12 @@ Build an end-to-end Machine Learning system capable of predicting customer churn
 - [x] Phase 06 - Model Evaluation
 - [x] Phase 07 - Model Pusher & Model Registry
 - [x] Phase 08 - Prediction Pipeline & FastAPI
-- [ ] Phase 09 - MLflow Integration
-- [ ] Phase 10 - Dockerization
-- [ ] Phase 11 - Cloud Deployment
-- [ ] Phase 12 - Monitoring & CI/CD
+- [x] Phase 09 - MLflow Integration
+- [x] Phase 10 - Dockerization
+- [ ] Phase 11 - PostgreSQL Integration
+- [ ] Phase 12 - Airflow Orchestration
+- [ ] Phase 13 - Cloud Deployment
+- [ ] Phase 14 - Monitoring & CI/CD
 
 ---
 
@@ -40,20 +42,21 @@ Build an end-to-end Machine Learning system capable of predicting customer churn
 - Seaborn
 - PyYAML
 - Joblib
-- Logging
+- FastAPI
+- Uvicorn
+- Pydantic
+- MLflow
+- Docker
 - Git
 - GitHub
-- FastAPI
-- Pydantic
 
 ## Upcoming
 
-- MLflow
-- Docker
-- PostgreSQL
 - Airflow
+- PostgreSQL
 - CI/CD
 - Cloud Deployment
+- Monitoring
 
 ---
 
@@ -167,57 +170,88 @@ Build an end-to-end Machine Learning system capable of predicting customer churn
 
 ## ✅ Phase 08: Prediction Pipeline & FastAPI
 
-- Implemented reusable Prediction Pipeline
-- Built CustomerData class for inference inputs
-- Loaded production model and preprocessor
-- Generated churn predictions for new customer records
-- Added probability estimation using predict_proba()
-- Built production-ready FastAPI application
-- Implemented request validation using Pydantic
-- Added structured API response models
-- Created Health Check endpoint
-- Created Prediction endpoint
-- Added Swagger/OpenAPI documentation
-- Improved API error handling and logging
-- Separated training and inference pipelines
+- Built reusable Prediction Pipeline
+- Created CustomerData class for inference
+- Automatic preprocessing using saved preprocessing pipeline
+- Production model loading
+- FastAPI REST API
+- Request validation using Pydantic
+- JSON prediction responses
+- Probability prediction support
+- Health Check endpoint
+- Interactive Swagger Documentation
 
 ---
 
+## ✅ Phase 09: MLFlow Integration
+
+- Integrated MLflow Experiment Tracking
+- Automatic experiment creation
+- Automatic run tracking
+- Logged model metrics
+- Logged training parameters
+- Logged model artifacts
+- Logged trained models
+- Added model signature
+- Added input example
+- Added experiment tags
+- Recorded training execution time
+
+---
+
+## ✅ Phase 10: Dockerization
+
+- Dockerfile created
+- Python slim base image
+- Multi-stage dependency installation
+- Containerized FastAPI application
+- Production-ready startup command
+- Port mapping
+- Environment isolation
+- Reproducible deployment
+
+---
 
 # 🔄 Training Pipeline Workflow
 
 ```text
-Raw Dataset
-      │
-      ▼
+Dataset
+   │
+   ▼
 Data Ingestion
-      │
-      ▼
+   │
+   ▼
 Data Validation
-      │
-      ▼
+   │
+   ▼
+EDA
+   │
+   ▼
 Data Transformation
-      │
-      ▼
-Train/Test Arrays
-      │
-      ▼
+   │
+   ▼
 Model Training
-      │
-      ▼
+   │
+   ▼
+MLflow Logging
+   │
+   ▼
 Model Evaluation
-      │
-      ▼
+   │
+   ▼
 Model Pusher
-      │
-      ▼
+   │
+   ▼
 Production Models
-      │
-      ▼
+   │
+   ▼
 Prediction Pipeline
-      │
-      ▼
-FastAPI REST API
+   │
+   ▼
+FastAPI
+   │
+   ▼
+Docker Container
 ```
 
 ---
@@ -440,23 +474,42 @@ customer-churn-prediction/
 
 ---
 
-## 🌐 Prediction API
+## 🚀 Prediction API
 
-- Customer input abstraction
-- Production prediction pipeline
-- FastAPI REST service
-- Pydantic request validation
-- Structured response model
-- Prediction probability estimation
-- Health Check endpoint
-- Interactive Swagger documentation
+- FastAPI REST API
+- Health Check Endpoint
+- Prediction Endpoint
+- Probability Prediction
+- Request Validation
+- Swagger Documentation
+- Production Model Loading
+
+---
+
+## 📈 MLflow
+
+- Experiment Tracking
+- Metrics Logging
+- Parameters Logging
+- Model Logging
+- Model Signature
+- Input Example
+- Artifact Logging
+- Run Comparison
+
+---
+
+## 🐳 Docker
+
+- Containerized API
+- Lightweight Python Image
+- Production Startup
+- Dependency Isolation
 
 ---
 
 # 🚧 Upcoming Features
 
-- MLflow Experiment Tracking
-- Docker Containerization
 - PostgreSQL Integration
 - CI/CD Pipeline
 - Cloud Deployment
@@ -464,45 +517,38 @@ customer-churn-prediction/
 
 ---
 
-# 📌 Current Status
+## 📌 Current Status
 
-**Completed:** ✅ Phase 01 → Phase 08
+Completed:
+✅ Phase 01 → Phase 10
 
-The project now delivers a complete production-style machine learning workflow capable of:
+The project now includes a complete production-grade Machine Learning pipeline capable of:
 
-- Ingesting raw datasets
-- Validating dataset schema
-- Performing exploratory data analysis
-- Transforming data using Scikit-learn preprocessing pipelines
-- Training multiple machine learning models
-- Selecting the best-performing model
-- Evaluating candidate models
-- Promoting accepted models to production
-- Serving predictions through a FastAPI REST API
-- Returning prediction probabilities for new customer records
+- Data ingestion
+- Data validation
+- Exploratory data analysis
+- Data transformation
+- Model training
+- Model evaluation
+- Model promotion
+- Production model registry
+- Prediction pipeline
+- REST API using FastAPI
+- MLflow experiment tracking
+- Docker containerization
 
-Current production artifacts include:
+Generated artifacts:
 
-```text
 artifacts/
 ├── data_ingestion/
 ├── data_validation/
 ├── data_transformation/
-│   ├── preprocessor.pkl
-│   ├── train.npy
-│   └── test.npy
-│
 ├── model_trainer/
-│   ├── model.pkl
-│   ├── metrics.json
-│   └── model_report.csv
-│
-└── model_evaluation/
-    └── evaluation.yaml
+├── model_evaluation/
+└── model_pusher/
+
 production_models/
 ├── model.pkl
 └── preprocessor.pkl
 
-```
-The next milestone is **Phase 09 – MLflow Integration**, where experiment tracking, model versioning, and reproducibility will be introduced.
-```
+The project is now deployment-ready.

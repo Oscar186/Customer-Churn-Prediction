@@ -24,6 +24,14 @@ app = FastAPI(
     }
 )
 
+@app.get("/")
+def home():
+    return {
+        "message": "Customer Churn Prediction API",
+        "status": "Running",
+        "docs": "/docs",
+        "health": "/health"
+    }
 
 @app.get('/health',tags=['General'])
 def health_check():
