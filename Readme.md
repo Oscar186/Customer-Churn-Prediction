@@ -539,6 +539,7 @@ The project now includes a complete production-grade Machine Learning pipeline c
 
 Generated artifacts:
 
+```text
 artifacts/
 ├── data_ingestion/
 ├── data_validation/
@@ -550,5 +551,6 @@ artifacts/
 production_models/
 ├── model.pkl
 └── preprocessor.pkl
+```
 
 The project is now deployment-ready.
