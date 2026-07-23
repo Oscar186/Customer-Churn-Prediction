@@ -16,7 +16,7 @@ shap
 optuna
 
 sqlalchemy
-psycopg[binary]
+psycopg2-binary
 
 fastapi
 uvicorn

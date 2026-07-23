@@ -12,12 +12,16 @@
     # Perform preprocessing.
 
 import sys
-import shutil
+# import shutil
 from src.Entity.config_entity import DataIngestionConfig
 from src.Entity.artifact_entity import DataIngestionArtifact
 
 from src.logger import logger
 from src.exception import CustomException
+
+from src.Utils.db_utils import read_table
+from src.Utils.common import save_dataframe
+
 
 
 class DataIngestion:
@@ -36,23 +40,21 @@ class DataIngestion:
             logger.info("Starting Data Ingestion")
             logger.info("=" * 60)
 
-            if not self.config.source_data_path.exists():
-                raise FileNotFoundError(
-                    f"Dataset not found: {self.config.source_data_path}"
-                )
+            logger.info("Reading customer data from PostgreSQL.")
 
-            self.config.local_data_file.parent.mkdir(
-                parents=True,
-                exist_ok=True
+            df = read_table("customers")
+
+            logger.info(
+                f"Retrieved {len(df)} records from PostgreSQL."
             )
 
-            shutil.copy2(
-                self.config.source_data_path,
-                self.config.local_data_file
+            save_dataframe(
+                self.config.local_data_file,
+                df
             )
 
             logger.info(
-                f"Dataset copied to {self.config.local_data_file}"
+                f"Dataset saved to {self.config.local_data_file}"
             )
 
             ingestion_artifact = DataIngestionArtifact(

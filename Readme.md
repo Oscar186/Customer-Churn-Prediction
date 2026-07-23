@@ -23,7 +23,7 @@ Build an end-to-end Machine Learning system capable of predicting customer churn
 - [x] Phase 08 - Prediction Pipeline & FastAPI
 - [x] Phase 09 - MLflow Integration
 - [x] Phase 10 - Dockerization
-- [ ] Phase 11 - PostgreSQL Integration
+- [x] Phase 11 - PostgreSQL Integration
 - [ ] Phase 12 - Airflow Orchestration
 - [ ] Phase 13 - Cloud Deployment
 - [ ] Phase 14 - Monitoring & CI/CD
@@ -49,11 +49,14 @@ Build an end-to-end Machine Learning system capable of predicting customer churn
 - Docker
 - Git
 - GitHub
+- PostgreSQL
+- SQLAlchemy
+- psycopg2
+- python-dotenv
 
 ## Upcoming
 
 - Airflow
-- PostgreSQL
 - CI/CD
 - Cloud Deployment
 - Monitoring
@@ -212,46 +215,58 @@ Build an end-to-end Machine Learning system capable of predicting customer churn
 
 ---
 
+## ✅ Phase 11: PostgreSQL Integration
+
+- Installed and configured PostgreSQL
+- Created `customer_churn_db`
+- Built SQLAlchemy database connection layer
+- Defined ORM model for customer churn dataset
+- Implemented automatic table creation
+- Seeded PostgreSQL with 7,043 customer records
+- Created reusable database utility functions
+- Updated Data Ingestion to read directly from PostgreSQL
+- Maintained compatibility with the existing pipeline
+- Successfully executed the end-to-end training pipeline using PostgreSQL as the data source
+
+---
+
 # 🔄 Training Pipeline Workflow
 
 ```text
-Dataset
-   │
-   ▼
+CSV (One-Time Load)
+        │
+        ▼
+PostgreSQL Database
+        │
+        ▼
 Data Ingestion
-   │
-   ▼
+        │
+        ▼
 Data Validation
-   │
-   ▼
-EDA
-   │
-   ▼
+        │
+        ▼
 Data Transformation
-   │
-   ▼
+        │
+        ▼
 Model Training
-   │
-   ▼
-MLflow Logging
-   │
-   ▼
+        │
+        ▼
+MLflow Tracking
+        │
+        ▼
 Model Evaluation
-   │
-   ▼
+        │
+        ▼
 Model Pusher
-   │
-   ▼
+        │
+        ▼
 Production Models
-   │
-   ▼
-Prediction Pipeline
-   │
-   ▼
+        │
+        ▼
 FastAPI
-   │
-   ▼
-Docker Container
+        │
+        ▼
+Docker
 ```
 
 ---
@@ -311,6 +326,12 @@ customer-churn-prediction/
 │   │
 │   ├── Constants/
 │   │   └── __init__.py
+|   | 
+│   ├── Database/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   ├── seed_database.py
+│   │   └── database.py
 │   │
 │   ├── Entity/
 │   │   ├── config_entity.py
@@ -321,6 +342,8 @@ customer-churn-prediction/
 │   │   └── prediction_pipeline.py
 │   │
 │   ├── Utils/
+│   │   ├── db_utils.py
+│   │   ├── mlflow_utils.py
 │   │   └── common.py
 │   │
 │   ├── logger.py
@@ -508,9 +531,14 @@ customer-churn-prediction/
 
 ---
 
+## 📊 PostgreSQL Integration
+
+- Database Setup & ORM Layer 
+- Data Seeding
+- Data Utilities & Pipeleline Integration
+
 # 🚧 Upcoming Features
 
-- PostgreSQL Integration
 - CI/CD Pipeline
 - Cloud Deployment
 - Monitoring & Logging
@@ -520,7 +548,7 @@ customer-churn-prediction/
 ## 📌 Current Status
 
 Completed:
-✅ Phase 01 → Phase 10
+✅ Phase 01 → Phase 11
 
 The project now includes a complete production-grade Machine Learning pipeline capable of:
 
@@ -536,6 +564,7 @@ The project now includes a complete production-grade Machine Learning pipeline c
 - REST API using FastAPI
 - MLflow experiment tracking
 - Docker containerization
+- PostgreSQL Integration
 
 Generated artifacts:
 
